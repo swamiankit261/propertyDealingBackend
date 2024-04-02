@@ -83,4 +83,4 @@ export const changeCurrentUserPassword = asyncHandler(async (req, res) => {
     await user.save();
 
     res.status(200).json(new ApiResponse(200, {}, "password changed successfully"));
-})
+});
