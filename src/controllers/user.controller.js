@@ -1,9 +1,17 @@
+const { validationResult } = require("express-validator");
 const asyncHandler = require("../utils/asyncHandler");
 const ApiResponse = require("../utils/apiResponse");
 const ApiError = require("../utils/apiError");
 const User = require("../models/user.model");
 
-export const registerUser = asyncHandler(async (req, res) => {
+exports.registerUser = asyncHandler(async (req, res) => {
+
+    const result = validationResult(req);
+
+    if (!result.isEmpty()) {
+        return res.status(400).send({ errors: result.array() });
+    }
+
     const { firstName, lastName, email, password, mobileNo, companyName, address, roleOf } = req.body;
 
     const existingUser = await User.findOne({ email });
@@ -29,7 +37,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     res.status(201).json(new ApiResponse(201, user, "user registered successfully"));
 });
 
-export const loginUser = asyncHandler(async (req, res) => {
+exports.loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
     if (!email && !password) {
@@ -54,12 +62,12 @@ export const loginUser = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, token, "user logged in successfully"));
 });
 
-export const logoutUser = asyncHandler(async (req, res) => {
+exports.logoutUser = asyncHandler(async (req, res) => {
     res.clearCookie("accessToken");
     res.status(200).json(new ApiResponse(200, "user logged out successfully"));
 });
 
-export const changeCurrentUserPassword = asyncHandler(async (req, res) => {
+exports.changeCurrentUserPassword = asyncHandler(async (req, res) => {
     const { oldPassword, newPassword } = req.body;
 
     if (!oldPassword && !newPassword) {
