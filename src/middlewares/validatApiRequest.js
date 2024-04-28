@@ -1,6 +1,5 @@
 const { body } = require("express-validator");
 
-// Custom validation function for address
 const validateAddress = (value, { req }) => {
     if (!value || typeof value !== 'object') {
         throw new Error('Address is required and should be an object');

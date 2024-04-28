@@ -20,8 +20,10 @@ app.use(cookieParser());
 
 // Routes imports
 const userRoutes = require("./routes/user.routes");
+const propertyRoutes = require("./routes/property.routes");
 
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/property", propertyRoutes);
 
 
 
