@@ -1,4 +1,5 @@
 const { body } = require("express-validator");
+const ApiError = require("../utils/apiError");
 
 const validateAddress = (value, { req }) => {
     if (!value || typeof value !== 'object') {
@@ -27,3 +28,19 @@ const validateRegisterFields = [
 ];
 
 module.exports = validateRegisterFields;
+
+const validateRegisterPropertieField = [
+    body("images").exists().withMessage("images is required"),
+    body("price").exists().withMessage("price is required"),
+    body("postedAt").exists().withMessage("postedAt is required").trim().isIn(["Owner", "Builder", "Dealer"]).withMessage("postedAt must be one of 'Owner', 'Builder', or 'Dealer'"),
+    body("propertyType").exists().withMessage("propertyType is required like ex. 'Residential','Commercial'"),
+    body("propertyCategory").exists().withMessage("propertyCategory is required"),
+    body("address").custom(validateAddress), // Custom validation for address
+    body("rentOrSell").trim().isIn(["rent", "sell"]).withMessage("rentOrSell must be one of 'rent','sell'"),
+    body("areaUnit").exists().withMessage("areaUnit is required"),
+    body("saleType").trim().isIn(["firsthand", "secondhand"]).withMessage("saleType must be one of 'firsthand','secondhand'"),
+    body("landlord").trim().exists().withMessage("landlord is required"),
+    body("description").trim().exists().withMessage("description is required"),
+];
+
+module.exports = validateRegisterPropertieField;

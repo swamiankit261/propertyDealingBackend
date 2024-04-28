@@ -2,11 +2,23 @@ const asyncHandler = require("../utils/asyncHandler");
 const ApiResponse = require("../utils/apiResponse");
 const ApiError = require("../utils/apiError");
 const Property = require("../models/property.modle");
+const { validationResult } = require("express-validator");
+const cloudinary = require("cloudinary");
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 exports.registerProperty = asyncHandler(async (req, res) => {
-    const { price, posted, propertyType, propertyCategory, address, rentOrSell, areaUnit, saleType, landlord, description } = req.body;
 
-    posted.by = req.user._id;
+    const result = validationResult(req);
+
+    if (!result.isEmpty()) {
+        return res.status(400).send({ errors: result.array() });
+    }
+    const { price, postedAt, propertyType, propertyCategory, address, rentOrSell, areaUnit, saleType, landlord, description } = req.body;
 
     let images = [];
 
@@ -28,6 +40,11 @@ exports.registerProperty = asyncHandler(async (req, res) => {
 
     // req.body.images = imagesLinks;
 
+    let posted = {
+        at: postedAt,
+        by: req.user._id
+    };
+
     const Fields = {
         images: imagesLinks,
         price: price,
@@ -46,4 +63,4 @@ exports.registerProperty = asyncHandler(async (req, res) => {
     const property = await newProperty.save();
 
     res.status(201).json(new ApiResponse(201, "Property created successfully", property));
-})
+});

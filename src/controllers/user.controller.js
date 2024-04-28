@@ -44,7 +44,7 @@ exports.loginUser = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Email and password must be required")
     }
 
-    const user = await User.findOne(email).select("+password")
+    const user = await User.findOne({ email }).select("+password")
 
     if (!user) {
         throw new ApiError(404, "User not found");
@@ -56,10 +56,11 @@ exports.loginUser = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Invalid password");
     }
 
-    const token = user.generateAccessToken();
+    const token = await user.generateAccessToken();
 
-    res.status(200).cookie("accessToken", token)
-        .json(new ApiResponse(200, token, "user logged in successfully"));
+    const options = { httpOnly: true, secure: true };
+    res.status(200).cookie("accessToken", token, options)
+        .json(new ApiResponse(200, { accessToken: token }, "user logged in successfully"));
 });
 
 exports.logoutUser = asyncHandler(async (req, res) => {

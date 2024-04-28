@@ -1,6 +1,8 @@
 const express = require('express');
 const { verifyJWT } = require("../middlewares/auth.middleware");
 const { registerProperty } = require('../controllers/property.controller');
+const validateRegisterPropertieField = require('../middlewares/validatApiRequest');
+
 
 const R = express.Router();
 
