@@ -1,7 +1,7 @@
 const express = require('express');
 const { registerUser, loginUser, logoutUser, changeCurrentUserPassword } = require('../controllers/user.controller');
 const { verifyJWT } = require('../middlewares/auth.middleware');
-const validateRegisterFields = require('../middlewares/validatApiRequest');
+const validateRegisterFields = require('../middlewares/validatUserApiRequest');
 
 const R = express.Router();
 

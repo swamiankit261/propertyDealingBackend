@@ -11,6 +11,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+// Create a new property
 exports.registerProperty = asyncHandler(async (req, res) => {
 
     const result = validationResult(req);
@@ -64,3 +65,19 @@ exports.registerProperty = asyncHandler(async (req, res) => {
 
     res.status(201).json(new ApiResponse(201, "Property created successfully", property));
 });
+
+// Get single property
+exports.getSingleProperty = asyncHandler(async (req, res) => {
+    const property = await Property.findById(req.params.id);
+
+    if (!property) {
+        throw new ApiError(404, "Property not found");
+    }
+
+    res.status(200).json(new ApiResponse(200, "Property found", property));
+});
+
+
+exports.updateProduct = asyncHandler(async (req, res) => {
+    const { price, postedAt, propertyType, propertyCategory, address, rentOrSell, areaUnit, saleType, landlord, description } = req.body;
+})
