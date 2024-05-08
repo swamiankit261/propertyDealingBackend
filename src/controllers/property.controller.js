@@ -5,11 +5,6 @@ const Property = require("../models/property.modle");
 const { validationResult } = require("express-validator");
 const cloudinary = require("cloudinary");
 
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-});
 
 // Create a new property
 exports.registerProperty = asyncHandler(async (req, res) => {
@@ -20,7 +15,6 @@ exports.registerProperty = asyncHandler(async (req, res) => {
         return res.status(400).send({ errors: result.array() });
     }
     const { price, postedAt, propertyType, propertyCategory, address, rentOrSell, areaUnit, saleType, landlord, description } = req.body;
-
     let images = [];
 
     if (typeof req.body.images === "string") {
@@ -39,17 +33,14 @@ exports.registerProperty = asyncHandler(async (req, res) => {
         });
     }
 
-    // req.body.images = imagesLinks;
-
-    let posted = {
-        at: postedAt,
-        by: req.user._id
-    };
 
     const Fields = {
         images: imagesLinks,
         price: price,
-        posted: posted,
+        posted: {
+            at: postedAt,
+            by: req.user._id
+        },
         propertyType: propertyType,
         propertyCategory: propertyCategory,
         address: address,
@@ -62,6 +53,7 @@ exports.registerProperty = asyncHandler(async (req, res) => {
 
     const newProperty = new Property(Fields);
     const property = await newProperty.save();
+
 
     res.status(201).json(new ApiResponse(201, property, "Property created successfully"));
 });
@@ -141,7 +133,7 @@ exports.deleteProperty = asyncHandler(async (req, res) => {
     }
 
     for (let i = 0; i < property.images.length; i++) {
-        await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+        await cloudinary.v2.uploader.destroy(property.images[i].public_id);
     }
 
     const result = await Property.findByIdAndDelete(req.params.id);
