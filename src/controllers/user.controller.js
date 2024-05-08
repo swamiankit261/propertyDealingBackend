@@ -65,7 +65,7 @@ exports.loginUser = asyncHandler(async (req, res) => {
 
 exports.logoutUser = asyncHandler(async (req, res) => {
     res.clearCookie("accessToken");
-    res.status(200).json(new ApiResponse(200, "user logged out successfully"));
+    res.status(200).json(new ApiResponse(200, {}, "user logged out successfully"));
 });
 
 exports.changeCurrentUserPassword = asyncHandler(async (req, res) => {
