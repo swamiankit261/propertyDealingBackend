@@ -87,6 +87,27 @@ const propertySchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        reviews: [
+            {
+                user: {
+                    type: mongoose.Schema.ObjectId,
+                    ref: "users",
+                    required: true
+                },
+                name: {
+                    type: String,
+                    required: true
+                },
+                rating: {
+                    type: Number,
+                    required: true
+                },
+                comment: {
+                    type: String,
+                    required: true
+                }
+            }
+        ],
         description: {
             type: String,
             required: true

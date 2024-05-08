@@ -143,4 +143,43 @@ exports.deleteProperty = asyncHandler(async (req, res) => {
     }
 
     res.status(200).json(new ApiResponse(200, {}, "Property deleted successfully"));
+});
+
+exports.createPropertyReview = asyncHandler(async (req, res) => {
+    const { rating, comment, propertyId } = req.body;
+
+    const review = {
+        user: req.user._id,
+        name: req.user.fullName,
+        rating: Number(rating),
+        comment: comment
+    }
+
+    const property = await Property.findById(propertyId)
+
+    const isReviewed = await property.reviews.find(rev => rev.user.toString() === req.user._id.toString());
+
+    if (isReviewed) {
+        property.reviews.forEach((rev) => {
+            if (rev.user.toString() === req.user._id.toString()) {
+                rev.rating = rating,
+                    rev.comment = comment
+            }
+        })
+    } else {
+        property.reviews.push(review);
+        property.numOfReviews = property.reviews.length
+    }
+
+    let avg = 0;
+
+    property.reviews.forEach((rev) => {
+        avg += rev.rating;
+    });
+
+    property.ratings = avg / product.reviews.length;
+
+    await property.save({ validateBeforeSave: false });
+
+    response.status(200).json(new ApiResponse(200, {}, "your review has been saved successfully"))
 })
