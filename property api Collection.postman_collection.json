@@ -44,7 +44,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": " {\r\n        \"images\": \"https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg \",\r\n        \"price\": 250000,\r\n        \"postedAt\": \"Owner\",\r\n        \"propertyType\": \"Residential\",\r\n        \"propertyCategory\": \"House\",\r\n        \"address\": { \"street\": \"123 Main St\", \"city\": \"Example City\", \"state\": \"Example State\", \"zipCode\": \"12345\" },\r\n        \"rentOrSell\": \"sell\",\r\n        \"areaUnit\": 2000,\r\n        \"saleType\": \"firsthand\",\r\n        \"landlord\": \"John Doe\",\r\n        \"description\": \"Beautiful house for sale in a quiet neighborhood.\"\r\n    }",
+					"raw": " {\r\n        \"images\": \"https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg \",\r\n        \"price\": 250000,\r\n        \"postedAt\": \"Owner\",\r\n        \"propertyType\": \"Commercial\",\r\n        \"propertyCategory\": \"apartment\",\r\n        \"address\": { \"street\": \"123 Main St\", \"city\": \"jaipur\", \"state\": \"Example State\", \"zipCode\": \"12545\" },\r\n        \"rentOrSell\": \"rent\",\r\n        \"areaUnit\": 1500,\r\n        \"saleType\": \"secondhand\",\r\n        \"landlord\": \"John\",\r\n        \"description\": \"Beautiful house for sale in a quiet neighborhood.\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -113,6 +113,63 @@
 						"property",
 						"property",
 						"663b1abb816586e6b9b89019"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all property",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/property/allProperty",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"property",
+						"allProperty"
+					],
+					"query": [
+						{
+							"key": "keyword",
+							"value": "12345",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search all property",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/property/allProperty?keyword=12345",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"property",
+						"allProperty"
+					],
+					"query": [
+						{
+							"key": "keyword",
+							"value": "12345"
+						}
 					]
 				}
 			},
