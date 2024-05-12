@@ -1,6 +1,6 @@
 const express = require('express');
 const { verifyJWT } = require("../middlewares/auth.middleware");
-const { registerProperty, getSingleProperty, updateProperty, deleteProperty, createPropertyReview } = require('../controllers/property.controller');
+const { registerProperty, getSingleProperty, updateProperty, deleteProperty, createPropertyReview, getAllProperty } = require('../controllers/property.controller');
 const validateRegisterPropertieField = require('../middlewares/validatPropertieApi');
 const { param } = require("express-validator");
 
@@ -13,6 +13,8 @@ const requireId = [
 const R = express.Router();
 
 R.route("/registerProperty").post(verifyJWT, validateRegisterPropertieField, registerProperty);
+
+R.route("/allProperty").get(getAllProperty);
 
 R.route("/property/:id").get(requireId, getSingleProperty);
 

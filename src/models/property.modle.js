@@ -6,6 +6,7 @@ const addressSchema = mongoose.Schema({
     city: {
         type: String,
         required: true,
+        index: true
     },
     state: {
         type: String,
@@ -55,12 +56,14 @@ const propertySchema = new mongoose.Schema(
         propertyType: {
             type: String,
             required: true,
+            index: true,
             enum: ["Residential", "Commercial"]
         },
         // Category of the property (e.g., house, apartment, office)
         propertyCategory: {
             type: String,
             required: true,
+            indexedDB: true,
         },
         // Address of the property
         address: {

@@ -4,6 +4,7 @@ const ApiError = require("../utils/apiError");
 const Property = require("../models/property.modle");
 const { validationResult } = require("express-validator");
 const cloudinary = require("cloudinary");
+const ApiFeatures = require("../utils/ApiFeatures");
 
 
 // Create a new property
@@ -57,6 +58,20 @@ exports.registerProperty = asyncHandler(async (req, res) => {
 
     res.status(201).json(new ApiResponse(201, property, "Property created successfully"));
 });
+
+
+exports.getAllProperty = asyncHandler(async (req, res) => {
+    const resultPerPage = 8;
+
+    const propertyCount = await Property.countDocuments();
+
+    const apiFeatur = new ApiFeatures(Property.find(), req.query).search();
+
+    const properties = await apiFeatur.query.clone();
+
+    res.status(200).json(new ApiResponse(200, { properties, propertyCount }, "Property get successfully"));
+
+})
 
 // Get single property
 exports.getSingleProperty = asyncHandler(async (req, res) => {
