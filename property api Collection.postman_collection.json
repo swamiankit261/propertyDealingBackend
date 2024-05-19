@@ -44,7 +44,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": " {\r\n        \"images\": \"https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg \",\r\n        \"price\": 250000,\r\n        \"postedAt\": \"Owner\",\r\n        \"propertyType\": \"Commercial\",\r\n        \"propertyCategory\": \"apartment\",\r\n        \"address\": { \"street\": \"123 Main St\", \"city\": \"jaipur\", \"state\": \"Example State\", \"zipCode\": \"12545\" },\r\n        \"rentOrSell\": \"rent\",\r\n        \"areaUnit\": 1500,\r\n        \"saleType\": \"secondhand\",\r\n        \"landlord\": \"John\",\r\n        \"description\": \"Beautiful house for sale in a quiet neighborhood.\"\r\n    }",
+					"raw": " {\r\n        \"images\": \"https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg \",\r\n        \"price\": 250000,\r\n        \"postedAt\": \"Owner\",\r\n        \"propertyType\": \"Commercial\",\r\n        \"propertyCategory\": \"apartment\",\r\n        \"address\": { \"street\": \"123 Main St\", \"city\": \"jaipur\", \"state\": \"Example State\", \"zipCode\": \"12545\" },\r\n        \"lookingTo\": \"rent\",\r\n        \"areaUnit\": 1500,\r\n        \"BHK\": \"secondhand\",\r\n        \"landlord\": \"John\",\r\n        \"description\": \"Beautiful house for sale in a quiet neighborhood.\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"

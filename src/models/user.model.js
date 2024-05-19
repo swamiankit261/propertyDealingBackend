@@ -68,8 +68,7 @@ const userSchema = new mongoose.Schema(
         },
         roleOf: {
             type: String,
-            required: true,
-            enum: ["landlord", "tenant", "broker"]
+            default: "user"
         }
 
     }, { timestamps: true });

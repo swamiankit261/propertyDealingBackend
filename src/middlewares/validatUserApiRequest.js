@@ -24,7 +24,7 @@ const validateRegisterFields = [
     body("email").trim().isEmail(),
     body("password").trim().isStrongPassword(),
     body("address").custom(validateAddress), // Custom validation for address
-    body("roleOf").trim().isIn(["landlord", "tenant", "broker"]),
+    // body("roleOf").trim().isIn(["landlord", "tenant", "broker"]),
 ];
 
 module.exports = validateRegisterFields;

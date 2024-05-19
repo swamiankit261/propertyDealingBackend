@@ -1,11 +1,11 @@
-const dotenv = require('dotenv');
+// const dotenv = require('dotenv');
 const connectDB = require("./db/dbconnection");
 const app = require("./app");
 const cloudinary = require("cloudinary");
 
 const PORT = process.env.PORT || 8000;
 
-dotenv.config({ path: "./.env" });
+// dotenv.config({ path: "./.env" });
 
 process.on("SIGINT", () => {
     console.log('Server shutting down gracefully !');

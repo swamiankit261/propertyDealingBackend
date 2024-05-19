@@ -24,9 +24,9 @@ const validateRegisterPropertieField = [
     body("propertyType").exists().withMessage("propertyType is required like ex. 'Residential','Commercial'"),
     body("propertyCategory").exists().withMessage("propertyCategory is required"),
     body("address").custom(validateAddress), // Custom validation for address
-    body("rentOrSell").trim().isIn(["rent", "sell"]).withMessage("rentOrSell must be one of 'rent','sell'"),
+    body("lookingTo").trim().isIn(["rent", "sell", "PG/Co-living"]).withMessage("lookingTo must be one of 'rent','sell','PG/Co-living'"),
     body("areaUnit").exists().withMessage("areaUnit is required"),
-    body("saleType").trim().isIn(["firsthand", "secondhand"]).withMessage("saleType must be one of 'firsthand','secondhand'"),
+    body("BHK").trim().isIn(["1RK", "1BHK", "2BHK", "3BHK", "3+BHK"]).withMessage("BHK must be one of 'firsthand','secondhand'"),
     body("landlord").trim().exists().withMessage("landlord is required"),
     body("description").trim().exists().withMessage("description is required"),
 ];

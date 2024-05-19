@@ -70,20 +70,20 @@ const propertySchema = new mongoose.Schema(
             type: addressSchema,
             required: true,
         },
-        rentOrSell: {
+        lookingTo: {
             type: String,
             required: true,
-            enum: ["rent", "sell"]
+            enum: ["rent", "sell", "PG/Co-living"]
         },
         // Unit of measurement for the area of the property
         areaUnit: {
             type: Number,
             required: true
         },
-        saleType: {
+        BHK: {
             type: String,
             required: true,
-            enum: ["firsthand", "secondhand"]
+            enum: ["1RK", "1BHK", "2BHK", "3BHK", "3+BHK"]
         },
         // Name of the landlord
         landlord: {

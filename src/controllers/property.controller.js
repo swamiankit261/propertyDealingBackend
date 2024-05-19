@@ -15,7 +15,7 @@ exports.registerProperty = asyncHandler(async (req, res) => {
     if (!result.isEmpty()) {
         return res.status(400).send({ errors: result.array() });
     }
-    const { price, postedAt, propertyType, propertyCategory, address, rentOrSell, areaUnit, saleType, landlord, description } = req.body;
+    const { price, postedAt, propertyType, propertyCategory, address, lookingTo, areaUnit, BHK, landlord, description } = req.body;
     let images = [];
 
     if (typeof req.body.images === "string") {
@@ -25,7 +25,7 @@ exports.registerProperty = asyncHandler(async (req, res) => {
     };
 
     const imagesLinks = [];
-
+    console.log(req.body)
     for (let i = 0; i < images.length; i++) {
         const image = await cloudinary.v2.uploader.upload(images[i], { folder: "Property" });
         imagesLinks.push({
@@ -37,17 +37,22 @@ exports.registerProperty = asyncHandler(async (req, res) => {
 
     const Fields = {
         images: imagesLinks,
-        price: price,
+        price: Number(price),
         posted: {
             at: postedAt,
             by: req.user._id
         },
         propertyType: propertyType,
         propertyCategory: propertyCategory,
-        address: address,
-        rentOrSell: rentOrSell,
-        areaUnit: areaUnit,
-        saleType: saleType,
+        address: {
+            street: address.street,
+            city: address.city,
+            state: address.state,
+            zipCode: Number(address.zipCode),
+        },
+        lookingTo: lookingTo,
+        areaUnit: Number(areaUnit),
+        BHK: BHK,
         landlord: landlord,
         description: description
     }

@@ -12,7 +12,7 @@ exports.registerUser = asyncHandler(async (req, res) => {
         return res.status(400).send({ errors: result.array() });
     }
 
-    const { firstName, lastName, email, password, mobileNo, companyName, address, roleOf } = req.body;
+    const { firstName, lastName, email, password, mobileNo, companyName, address } = req.body;
 
     const existingUser = await User.findOne({ email });
 
@@ -27,8 +27,7 @@ exports.registerUser = asyncHandler(async (req, res) => {
         password: password,
         mobileNo: mobileNo,
         companyName: companyName,
-        address: address,
-        roleOf: roleOf
+        address: address
     }
 
     const user = await User.create(Fields)
@@ -63,10 +62,15 @@ exports.loginUser = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, { accessToken: token }, "user logged in successfully"));
 });
 
-exports.logoutUser = asyncHandler(async (req, res) => {
+exports.logoutUser = asyncHandler(async (_, res) => {
     res.clearCookie("accessToken");
     res.status(200).json(new ApiResponse(200, {}, "user logged out successfully"));
 });
+
+exports.getCurrentUser = asyncHandler(async (req, res) => {
+    const user = req.user;
+    res.status(200).json(new ApiResponse(200, user, "user get successfully"));
+})
 
 exports.changeCurrentUserPassword = asyncHandler(async (req, res) => {
     const { oldPassword, newPassword } = req.body;
@@ -92,4 +96,16 @@ exports.changeCurrentUserPassword = asyncHandler(async (req, res) => {
     await user.save();
 
     res.status(200).json(new ApiResponse(200, {}, "password changed successfully"));
+});
+
+exports.getAllUsers = asyncHandler(async (_, res) => {
+    const totalUsers = await User.countDocuments();
+    const user = await User.find();
+    const users = user.map(user => ({
+        ...user.toObject(), // Convert Mongoose document to plain JS object
+        fullName: user.fullName // Access the virtual property
+    }));
+
+    console.log(users);
+    res.status(200).json(new ApiResponse(200, { users, totalUsers }, "Users fetched successfully"));
 });
