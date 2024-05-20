@@ -1,6 +1,6 @@
 const express = require('express');
 const { verifyJWT } = require("../middlewares/auth.middleware");
-const { registerProperty, getSingleProperty, updateProperty, deleteProperty, createPropertyReview, getAllProperty } = require('../controllers/property.controller');
+const { registerProperty, getSingleProperty, updateProperty, deleteProperty, createPropertyReview, getAllProperty, propertieRatings } = require('../controllers/property.controller');
 const validateRegisterPropertieField = require('../middlewares/validatPropertieApi');
 const { param } = require("express-validator");
 
@@ -22,8 +22,10 @@ R.route("/updateProperty/:id").patch(verifyJWT, requireId, updateProperty);
 
 R.route("/deleteProperty/:id").delete(verifyJWT, deleteProperty);
 
+R.route("/propertieRatings/:id").put(verifyJWT, requireId, propertieRatings)
 
-R.route("/review").put(verifyJWT, createPropertyReview)
+
+// R.route("/review").put(verifyJWT, createPropertyReview)
 
 
 

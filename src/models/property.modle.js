@@ -44,7 +44,7 @@ const propertySchema = new mongoose.Schema(
             at: {
                 type: String,
                 required: true,
-                enum: ["Owner", "Builder", "Dealer"]
+                enum: ["Owner", "Agent", "Builder"]
             },
             by: {
                 type: mongoose.Schema.Types.ObjectId,
@@ -90,27 +90,36 @@ const propertySchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        reviews: [
-            {
-                user: {
-                    type: mongoose.Schema.ObjectId,
-                    ref: "users",
-                    required: true
-                },
-                name: {
-                    type: String,
-                    required: true
-                },
-                rating: {
-                    type: Number,
-                    required: true
-                },
-                comment: {
-                    type: String,
-                    required: true
-                }
-            }
-        ],
+        mobileNo: {
+            type: String,
+            required: true
+        },
+
+        rating: {
+            type: Number,
+            enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        },
+        // reviews: [
+        //     {
+        //         user: {
+        //             type: mongoose.Schema.ObjectId,
+        //             ref: "users",
+        //             required: true
+        //         },
+        //         name: {
+        //             type: String,
+        //             required: true
+        //         },
+        //         rating: {
+        //             type: Number,
+        //             required: true
+        //         },
+        //         comment: {
+        //             type: String,
+        //             required: true
+        //         }
+        //     }
+        // ],
         description: {
             type: String,
             required: true

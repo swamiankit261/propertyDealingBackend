@@ -20,7 +20,7 @@ const validateAddress = (value, { req }) => {
 const validateRegisterPropertieField = [
     body("images").exists().withMessage("images is required"),
     body("price").exists().withMessage("price is required"),
-    body("postedAt").exists().withMessage("postedAt is required").trim().isIn(["Owner", "Builder", "Dealer"]).withMessage("postedAt must be one of 'Owner', 'Builder', or 'Dealer'"),
+    body("postedAt").exists().withMessage("postedAt is required").trim().isIn(["Owner", "Agent", "Builder"]).withMessage("postedAt must be one of 'Owner', 'Builder', or 'Dealer'"),
     body("propertyType").exists().withMessage("propertyType is required like ex. 'Residential','Commercial'"),
     body("propertyCategory").exists().withMessage("propertyCategory is required"),
     body("address").custom(validateAddress), // Custom validation for address

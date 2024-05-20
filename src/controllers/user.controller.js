@@ -106,6 +106,5 @@ exports.getAllUsers = asyncHandler(async (_, res) => {
         fullName: user.fullName // Access the virtual property
     }));
 
-    console.log(users);
     res.status(200).json(new ApiResponse(200, { users, totalUsers }, "Users fetched successfully"));
 });
